@@ -5,3 +5,4 @@ access_product_expiry_manager,access_product_expiry_manager,model_product_templa
 
 access_sale_order_admin,access_sale_order_admin,model_sale_order_line,base.group_system,1,1,1,1
 access_sale_order_user,access_sale_order_user,model_sale_order_line,base.group_user,1,0,0,0
+access_sale_order_manager,access_sale_order_manager,model_sale_order_line,stock.group_stock_manager,1,1,1,1

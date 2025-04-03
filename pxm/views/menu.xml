@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<menuitem id="top_menu" name="Product Expiry Management " sequence="10"
+                  web_icon="pxm,static/description/icon.png"/>
+
+		<menuitem id="top_menu_pxm" name="Product Expiry Management" parent="top_menu"
+				  />
+
+	</data>
+</odoo>

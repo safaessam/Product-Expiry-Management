@@ -13,7 +13,9 @@
     'data': [
         'security/ir.model.access.csv',
         'views/product_view.xml',
+        'views/menu.xml',
         'data/ir_cron.xml',
+
     ],
     'installable': True,
     'application': True,
