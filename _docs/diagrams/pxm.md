@@ -20,12 +20,9 @@ classDiagram
         - is_expired: Boolean (compute)
         - is_near_expiry: Boolean (compute)
         
-        + check_expiry_products()$
+        + cron_notify_inventory_managers()$
         + _compute_is_expired()
         + _compute_is_near_expiry()
-        + create(vals)*
-        + write(vals)*
-        + _check_expiry_on_sale()$
     }
 
     ProductTemplate --|> product_template : "_inherit"
