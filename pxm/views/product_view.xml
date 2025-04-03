@@ -26,13 +26,12 @@
                 <div class="alert alert-danger"  role="alert" invisible="not is_expired">
                     <strong>Warning:</strong> This product has expired!
                 </div>
-                <div class="alert alert-warning" role="alert" invisible="not is_near_expiry">
+                <div class="alert alert-warning" role="alert" invisible="not is_near_expiry or is_expired">
                     <strong>Warning:</strong> This product is nearing expiry!
                 </div>
             </xpath>
         </field>
     </record>
-
     <!-- Product Template Search View -->
     <record id="view_product_template_search_expiry" model="ir.ui.view">
         <field name="name">product.template.search.expiry</field>

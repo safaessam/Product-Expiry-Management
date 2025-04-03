@@ -54,56 +54,60 @@ class ProductTemplate(models.Model):
             else:
                 record.is_expired = False
 
-    def check_expiry_products(self):
+    def cron_notify_inventory_managers(self):
         """Cron job to notify inventory managers about products expiring within the next 7 days."""
+        try:
+            today = fields.Date.today()
 
-        today = fields.Date.today()
-        expiring_products = self.search([('expiry_date', '>=', today),
-                                         ('expiry_date', '<=', today + timedelta(days=7))])
+            # Search for expiring products
+            expiring_products = self.search([
+                ('expiry_date', '>=', today),
+                ('expiry_date', '<=', today + timedelta(days=7))
+            ])
 
-        if not expiring_products:
-            _logger.info("No products expiring within the next 7 days.")
-            return
+            if not expiring_products:
+                _logger.info("No products expiring within the next 7 days.")
+                return
 
-        inventory_managers = self.env.ref('stock.group_stock_manager').users
-        if not inventory_managers:
-            _logger.warning("No inventory managers found to notify.")
-            return
+            # Get users with 'Inventory Manager' role
+            inventory_managers = self.env['res.users'].search([
+                ('groups_id', '=', self.env.ref('stock.group_stock_manager').id)
+            ])
+            if not inventory_managers:
+                _logger.warning("No inventory managers found to notify.")
+                return
 
-        # Prepare notification message
-        # message_body = "The following products are nearing expiry:"
-        # for product in expiring_products:
-        #     message_body += f"\n- {product.name} (Expiry Date: {product.expiry_date})"
-        #
-        # subject = "⚠️ Expiring Products Alert"
+            # Prepare notification message
+            message_body = "The following products are nearing expiry:"
+            for product in expiring_products:
+                message_body += f"\n- {product.name} (Expiry Date: {product.expiry_date})"
 
-        # # """ Send message to each inventory manager """
-        # for user in inventory_managers:
-        #     user.partner_id.message_post(
-        #         body=message_body,
-        #         subject=subject,
-        #         message_type='notification',
-        #         subtype_xmlid="mail.mt_comment",
-        #         author_id=self.env.user.partner_id.id  # Ensure a valid sender
-        #     )
-            # Prepare activity message
-            activity_summary = "⚠️ Expiring Products Alert"
-            activity_note = "The following products are nearing expiry:\n"
-            activity_note += "\n".join(
-                f"- {product.name} (Expiry Date: {product.expiry_date})" for product in expiring_products)
+            subject = "⚠️ Expiring Products Alert"
 
-            # Create an activity for each Inventory Manager
+            # Send notifications or create activities for each inventory manager
             for user in inventory_managers:
-                self.env['mail.activity'].create({
-                    'res_model': 'product.template',
-                    'res_id': record.id,
-                    'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                    # Use a warning activity type
-                    'user_id': user,
-                    'summary': activity_summary,
-                    'note': activity_note,
-                    'date_deadline': fields.Date.today() + timedelta(days=7),  # Deadline for the activity
-                })
+                # Send the message via email/SMS
+                user.partner_id.message_post(
+                    body=message_body,
+                    subject=subject,
+                    message_type='notification',
+                    subtype_xmlid="mail.mt_comment",
+                    author_id=self.env.user.partner_id.id  # Ensure a valid sender
+                )
+
+                # Alternatively, you can use an activity for follow-up
+                self.activity_schedule(
+                    'mail.mail_activity_data_todo',
+                    summary=subject,
+                    note=message_body,
+                    user_id=user.id,  # Use user.id for activity assignment
+                    date_deadline=today + timedelta(days=1)  # Due tomorrow
+                )
+
+            _logger.info(f"Successfully notified {len(inventory_managers)} inventory managers about expiring products.")
+
+        except Exception as e:
+            _logger.error(f"Error in cron_notify_inventory_managers: {str(e)}")
 
     # @api.constrains('expiry_date')
     # def _check_expiry_date(self):
