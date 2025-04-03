@@ -100,8 +100,8 @@ class ProductTemplate(models.Model):
                     'mail.mail_activity_data_todo',
                     summary=subject,
                     note=message_body,
-                    user_id=user.id,  # Use user.id for activity assignment
-                    date_deadline=today + timedelta(days=1)  # Due tomorrow
+                    user_id=user.id,  # Assign to the inventory manager
+                    date_deadline=today + timedelta(days=7)  # Due 7 days from today
                 )
 
             _logger.info(f"Successfully notified {len(inventory_managers)} inventory managers about expiring products.")
