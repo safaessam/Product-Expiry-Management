@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-  {
+{
     'name': 'Product Expiry Management',
     'version': "1.0.0",
     'summary': 'Manage product expiry dates and notifications',
@@ -9,7 +9,7 @@
     """,
     'author': 'Safa Essam',
     'category': 'Inventory',
-    'depends': ['product', 'stock', 'mail'],
+    'depends': ['product', 'stock', 'mail', 'base','sale'],
     'data': [
         'security/ir.model.access.csv',
         'views/product_view.xml',

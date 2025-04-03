@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <!--    <data noupdate="0">-->
+<!--        <record id="default_schedule_always" model="ams_base.ac_schedule">-->
+<!--            <field name="name" >Always</field>-->
+<!--            <field name="schedule_number">1</field>-->
+<!--               <field name="description">Default schedule should be assigned for all users</field>-->
+<!--            <field name="is_predefined" eval="True"/>-->
+<!--        </record>-->
 
+<!--         <record id="default_ac_group" model="ams_base.ac_group">-->
+<!--            <field name="name" >All employees</field>-->
+<!--             <field name="description">Default group should be assigned for all users</field>-->
+<!--            <field name="group_number">1</field>-->
+<!--             <field name="is_predefined" eval="True"/>-->
+<!--        </record>-->
+
+<!--         <record id="default_device_group" model="ams_base.device_group">-->
+<!--            <field name="name" >All Devices</field>-->
+<!--             <field name="description">Default group should be assigned by default for  all devices</field>-->
+<!--            <field name="group_number">1</field>-->
+<!--             <field name="is_predefined" eval="True"/>-->
+<!--        </record>-->
 <!--    </data>-->
 </odoo>

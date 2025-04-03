@@ -1,1 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_expiry_admin,access_product_expiry_admin,model_product_template,base.group_system,1,1,1,1
+access_product_expiry_user,access_product_expiry_user,model_product_template,base.group_user,1,0,0,0
+access_product_expiry_manager,access_product_expiry_manager,model_product_template,stock.group_stock_manager,1,1,1,1
+
+access_sale_order_admin,access_sale_order_admin,model_sale_order_line,base.group_system,1,1,1,1
+access_sale_order_user,access_sale_order_user,model_sale_order_line,base.group_user,1,0,0,0
