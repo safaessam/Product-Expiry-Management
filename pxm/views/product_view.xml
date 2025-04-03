@@ -57,11 +57,7 @@
         <field name="model">module.model</field>
         <field name="arch" type="xml">
             <search>
-                <!--<field name="name"/>-->
-                <!--<field name="living_area" filter_domain="[('living_area', '>=', self)]"/>-->
-                <!--<filter string="Available" name="available" domain="[('state', 'in', ('new', 'offer_received'))]"/>-->
                 <group expand="1" string="Group By">
-                    <!--<filter string="Postcode" name='postcode' context="{'group_by':'postcode'}"/>-->
                 </group>
             </search>
         </field>
@@ -82,47 +78,10 @@
                                     <!--<field name="name"/>-->
                                 </strong>
                             </div>
-                            <!--<div>
-                                Expected Price: <field name="expected_price"/>
-                            </div>
-                            <div t-if="record.state.raw_value == 'offer_received'">
-                                Best Offer: <field name="best_price"/>
-                            </div>
-                            <div t-if="record.selling_price.raw_value">
-                                Selling Price: <field name="selling_price"/>
-                            </div>
-                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>-->
                         </div>
                     </t>
                 </templates>
             </kanban>
-        </field>
-    </record>
-
-    <!--TODO[IMP]: <model_name> _view_calendar-->
-    <record id="model_view_calendar" model="ir.ui.view">
-        <field name="name">module.model.calendar</field>
-        <field name="model">module.model</field>
-        <field name="arch" type="xml">
-            <calendar string="Appointment" date_start="start_date" date_stop="end_date" event_limit="5"
-                      quick_create="False" color="state" event_open_popup="True">
-                <!--<field name="name" />
-                <field name="company_id" filters="1" />
-                <field name="partner_id" filters="1" />
-                <field name="patient_id" avatar_field="image_128" />
-                <field name="start_date" options='{"datepicker": {"daysOfWeekDisabled": [5, 6]}}'/>-->
-            </calendar>
-        </field>
-    </record>
-
-    <!--TODO[IMP]: <model_name> _view_graph-->
-    <record id="model_view_graph" model="ir.ui.view">
-        <field name="name">module.model.graph</field>
-        <field name="model">module.model</field>
-        <field name="arch" type="xml">
-            <graph string="Appointment" type="bar">
-                <!--<field name="slot_id"/>-->
-            </graph>
         </field>
     </record>
 
